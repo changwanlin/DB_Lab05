@@ -6,15 +6,15 @@ async function doTransaction() {
     try {
         conn = await pool.getConnection();
         await conn.beginTransaction();
-        const studentId = 'S10810001';
+        const studentId = 'S10811001';
         const checkSql = 'SELECT Student_ID, Name, Department_ID FROM STUDENT WHERE Student_ID = ?';
-        const rows = await conn.query(checkSql, ['S10810001']);
+        const rows = await conn.query(checkSql, ['S10811001']);
         if (rows.length === 0) {
             throw new Error('查無該學生資料，交易取消');
         }
         
         const updateStudent = 'UPDATE STUDENT SET Department_ID = ? WHERE Student_ID = ?';
-        await conn.query(updateStudent, ['EE001', 'S10810001']);
+        await conn.query(updateStudent, ['CS001', 'S10811001']);
         const updateRows = await conn.query(checkSql, [studentId]);
         await conn.commit();
         console.log('交易成功，已提交');
